@@ -53,7 +53,8 @@ print('Initial population generation procedure begins')
 iter_ini = 0                                                    # iteration of initial population generation
 A = ini.A                                                       # get a feasible initial solution
 A1 = copy.deepcopy(A)                                           # current solution
-value_A1 = functions.profit(A, functions.timeline(A))           # value of current solution
+A2 = copy.deepcopy(A)                                           # record the local optimal solution in initialization
+value_A1 = functions.profit(A)                                  # value of current solution
 pop_ini = []                                                    # initial population
 value_ini = []                                                  # the value of each solution in initial population
 operator = [1, 2, 3, 4, 5, 6, 7, 8, 9]                          # correspond to each operator
@@ -61,11 +62,12 @@ probability = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9]     # probability of
 
 while len(pop_ini) < 10:
     if iter_ini % 20 == 0:    # For every 20 iterations, backtrack the solution
-        A1 = copy.deepcopy(A)
+        A1 = copy.deepcopy(A2)
     iter_ini += 1
 
     if iter_ini % 5 == 0 and iter_ini != 0:  # visualization
         print('ini_iteration is:', iter_ini)
+        print('value is :', functions.profit(A2))
 
     for x in range(40):
         pick_result = np.random.choice(operator, p=probability)
@@ -96,13 +98,16 @@ while len(pop_ini) < 10:
         else:
             A1 = functions.accept(A1)
 
+        if functions.profit(A1) > functions.profit(A2) and functions.checksquare(A1) and functions.checktime(A1):
+            A2 = copy.deepcopy(A1)
+
         if iter_ini <= 40:
             # Only when both time and area are feasible, the profit is positive,
             # and the solution has not been recorded in initial population
             # will the solution be added to the initial population.
-            if functions.checktime(A1) and functions.checksquare(A1) and functions.profit(A1, functions.timeline(A1)) >= 0 and A1 not in pop_ini:
+            if functions.checktime(A1) and functions.checksquare(A1) and functions.profit(A1) >= 0 and A1 not in pop_ini:
                 pop_ini.append(A1)
-                value_ini.append(functions.profit(A1, functions.timeline(A1)))
+                value_ini.append(functions.profit(A1))
                 print('has found', len(pop_ini), 'individuals')   # visualization
                 break
 
@@ -110,17 +115,17 @@ while len(pop_ini) < 10:
             if iter_ini <= 80:
                 # When the profit is positive and solution has not been recorded in initial population,
                 # will the solution be added to the initial population.
-                if functions.profit(A1, functions.timeline(A1)) >= 0 and A1 not in pop_ini:
+                if functions.profit(A1) >= 0 and A1 not in pop_ini:
                     pop_ini.append(A1)
-                    value_ini.append(functions.profit(A1, functions.timeline(A1)))
+                    value_ini.append(functions.profit(A1))
                     break
 
             else:
                 # When the profit is positive,
                 # will the solution be added to the initial population.
-                if functions.profit(A1, functions.timeline(A1)) >= 0:
+                if functions.profit(A1) >= 0:
                     pop_ini.append(A1)
-                    value_ini.append(functions.profit(A1, functions.timeline(A1)))
+                    value_ini.append(functions.profit(A1))
                     break
 
 for t in pop_ini:
@@ -212,7 +217,7 @@ while not_improve <= 200:
         for c1 in children:
             if c1 not in pop_now:
                 pop_now.append(c1)
-                value_now.append(functions.profit(c1, functions.timeline(c1)))
+                value_now.append(functions.profit(c1))
 
     # Select individuals with optimal function values as elites
     Elite_pick = sorted(range(len(value_pop)), key=lambda i: value_pop[i], reverse=True)[:Elite_num]

@@ -67,7 +67,7 @@ No_improve = 0                                      # NI_3
 
 # update temporary variables
 origin_solution = copy.deepcopy(A)                                                     # IS
-origin_value = functions.profit(origin_solution, functions.timeline(origin_solution))  # IV
+origin_value = functions.profit(origin_solution)  # IV
 great_solution = copy.deepcopy(A)   # GOS
 great_value = origin_value          # GOV
 global_solution = copy.deepcopy(A)  # LOS
@@ -126,7 +126,7 @@ while Not_even_improve <= N1:               # stop criterion
         solution = functions.accept(solution)
 
     time3 = time.time()
-    value = functions.profit(solution, functions.timeline(solution))
+    value = functions.profit(solution)
 
     # score the operator in wo according to the comparison of CV and GOV, LOV, LV
     if value <= local_value and value/local_value < 500:  # Prevent errors in calculating e ^ (CV - LV) when the difference between CV and LV is too large

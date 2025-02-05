@@ -54,7 +54,7 @@ print('TS algorithm begins')
 CG = 0                                  # Current Generation CG
 RG = 0                                  # Restart Generation RG
 len_tabu_list = round(num_part/6)       # Length of tabu list
-len_NCS = len_tabu_list + 1             # The size of the neighborhood space
+len_NCS = len_tabu_list + 2             # The size of the neighborhood space
 tabu_list = [0] * len_tabu_list         # Initialization of tabu list TL
 operator = [1, 2, 3, 4, 5, 6, 7, 8, 9]  # index of each operator
 pick_probable = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9]   # selection probability of each operator
@@ -63,7 +63,7 @@ pick_probable = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9]   # selection prob
 # Initial solution process
 A = ini.A
 output_solution = copy.deepcopy(A)                         # OS, output solution
-output_value = functions.profit(A, functions.timeline(A))  # The functional value of OS
+output_value = functions.profit(A)  # The functional value of OS
 Current_solution = copy.deepcopy(A)                        # CS, current solution
 value = output_value                                       # The value of CS
 optimal_solution_list = [output_solution]                  # OSL, optimal solution list
@@ -116,8 +116,9 @@ while CG <= 400:
         elif pick == 9:
             temp_solution = functions.volume_reject(temp_solution)
 
-        value_NCS.append(functions.profit(temp_solution, functions.timeline(temp_solution)))
-        Neighbor_CS.append(temp_solution)  # Add neighborhood solutions
+        if temp_solution not in Neighbor_CS:
+            value_NCS.append(functions.profit(temp_solution))
+            Neighbor_CS.append(temp_solution)  # Add neighborhood solutions
 
     # Tabu list checking
     while forbidden == 0:
@@ -127,13 +128,13 @@ while CG <= 400:
             forbidden = 1                                         # update tabu condition
             Current_solution = copy.deepcopy(good_solution)
             Current_solution = functions.reschedule(Current_solution)
-            value = functions.profit(Current_solution, functions.timeline(Current_solution))
+            value = functions.profit(Current_solution)
 
             if good_solution not in tabu_list:      # tabu list process
                 tabu_list.append(Current_solution)  # add CS to TL
                 tabu_list.pop(0)                    # remove the earliest recorded solution in TL
 
-        value_NCS.remove(functions.profit(good_solution, functions.timeline(good_solution)))
+        value_NCS.remove(functions.profit(good_solution))
         Neighbor_CS.remove(good_solution)   # If BS does not meet the tabu conditions and amnesty criteria,
                                             # then remove BS from the neighborhood and search for the suboptimal
                                             # solution in the neighborhood space.

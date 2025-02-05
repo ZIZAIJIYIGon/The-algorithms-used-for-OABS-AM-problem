@@ -11,7 +11,7 @@ import copy
 
 
 # get order's data from instances file
-filename = 'instances/Order scale_50/Scenario1_4.5.txt'
+filename = 'instances/Order scale_20/Scenario1_3.0.txt'
 df = pd.read_csv(filename, header=None)
 data_list = df.values.tolist()
 height_order = data_list[0]               # height of the order
@@ -44,8 +44,9 @@ CV_order = 2                    # The cost of additive manufacturing materials p
 
 
 # calculate the objective function value of a solution
-def profit(schedule, time):
+def profit(schedule):
     pro = 0
+    time = timeline(schedule)
     for i in range(len(height_order)):
         if schedule[i][1] > -1:
             pro += profit_order[i]                   # income of orders
@@ -299,7 +300,7 @@ def more_batch(schedule):
 
 # 5. cost_reject operator
 def cost_reject(schedule):
-    target_value = profit(schedule, timeline(schedule))
+    target_value = profit(schedule)
     temp_sche = copy.deepcopy(schedule)
     cost_all = []
     index_all = []
@@ -309,7 +310,7 @@ def cost_reject(schedule):
             continue
         else:
             temp_sche[r1][1] = -1
-            now_value = profit(temp_sche, timeline(temp_sche))
+            now_value = profit(temp_sche)
             cut = now_value - target_value
             cost_all.append(cut)
             index_all.append(temp_sche[r1][0])
