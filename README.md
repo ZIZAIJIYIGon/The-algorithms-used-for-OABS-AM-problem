@@ -1,6 +1,14 @@
 # Project overview
 Coding with python3.9.1， this project implements three different algorithms (ARNS, RKGA, TS) to solve the order acceptance and batch scheduling problem in additive manufacturing. These algorithms accomplish their tasks by calling the functions in "**functions.py**" and the initial solution generation method in "**initialization.py**". Each algorithm file (**ARNS algorithm.py, RKGA algorithm.py, TS algorithm.py**) independently implements different optimization strategies, but they share the same initial solution generation and basic functions.
 
+# Usage
+
+1. Download the instances file through this link: https://github.com/ZIZAIJIYIGon/Instances-used-in-paper-submit-to-IJPR.git
+  
+2. Select the example to be calculated and modify the parameter "filename" in the function.py.
+ 
+3. Run algorithm files.
+
 # File description
 
 ## functions.py
@@ -82,13 +90,25 @@ Neighborhood search: Search for better solutions within the neighborhood.
 
 Backtracking strategy: Backtrack to a previously better solution when no optimization has occurred for a long time.
 
-## Output results
+# Visualization
+
+We visualized the corresponding calculation results based on the algorithm structure during the algorithm running process, including:
+
+1.During the initialization of population：output the current iteration count and the greatest function value ever obtained every five iterations during population initialization generation; Every time a new individual is added to the initial population, output the number of individuals in the initial population. **(only for RKGA algorithm)**
+
+2.During mainloop: when no better solution than the currently obtained optimal solution is found every **(10 for RKGA, 50 for TS, 100 for ARNS)** iterations, output the number of iterations in which the optimal solution was not found. Whenever a better solution is found, output the objective function value of the current optimal solution and the number of times a better solution is found.
+
+3.After the mainloop: output a two-dimensional graph consisting of the optimal function value found during each update and its corresponding iteration count.
+
+## ARNS algorithm.py :
+
+# Output
 
 Each algorithm file will output the following information after execution:
 
-Optimal solution (OS/GOS): The optimal scheduling solution.
+Optimal solution: The optimal scheduling solution.
 
-Optimal value (OV/GOV): The objective function value corresponding to the optimal solution.
+Optimal value: The objective function value corresponding to the optimal solution.
 
 Number of batches: The number of batches in the optimal solution.
 
@@ -100,7 +120,7 @@ CPU time: The time taken for the algorithm to run.
 
 Number of iterations: The number of iterations the algorithm has run.
 
-## Notes:
+# Notes:
 
 The testing instances is public in https://github.com/ZIZAIJIYIGon/Instances-used-in-paper-submit-to-IJPR.git
 
