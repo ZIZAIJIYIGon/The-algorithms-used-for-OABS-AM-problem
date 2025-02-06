@@ -100,8 +100,6 @@ We visualized the corresponding calculation results based on the algorithm struc
 
 3.After the mainloop: output a two-dimensional graph consisting of the optimal function value found during each update and its corresponding iteration count.
 
-## ARNS algorithm.py :
-
 # Output
 
 Each algorithm file will output the following information after execution:
