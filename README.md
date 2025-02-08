@@ -3,8 +3,7 @@ Coding with python3.9.1， this project implements three different algorithms (A
 
 # Usage
 
-1. Download the instances file through this link: https://github.com/ZIZAIJIYIGon/Instances-used-in-paper-submit-to-IJPR.git
-  
+1. Download the instances file through this link: https://github.com/ZIZAIJIYIGon/The-Instances-used-in-OABS-AM-problem.git
 2. Select the example to be calculated and modify the parameter "filename" in the function.py.
  
 3. Run algorithm files.
@@ -120,7 +119,7 @@ Number of iterations: The number of iterations the algorithm has run.
 
 # Notes:
 
-The testing instances is public in https://github.com/ZIZAIJIYIGon/Instances-used-in-paper-submit-to-IJPR.git
+The testing instances is public in https://github.com/ZIZAIJIYIGon/The-Instances-used-in-OABS-AM-problem.git
 
 Modify the file path in functions.py, and make sure that the data file path is correct.
 
