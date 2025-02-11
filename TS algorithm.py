@@ -73,7 +73,7 @@ iteration = 0                                              # Iteration
 
 
 # Main loop
-while CG <= 400:
+while CG <= 100:
 
     forbidden = 0                   # The parameter to judge the tabu condition
     Neighbor_CS = []                # Neighborhood solution
@@ -81,7 +81,7 @@ while CG <= 400:
     CG += 1
     RG += 1
     iteration += 1
-    if CG % 50 == 0 and CG != 0:    # Visualization of CG
+    if CG % 25 == 0 and CG != 0:    # Visualization of CG
         print('has not optimized for %d iterations' % CG)
 
     # Neighborhood search
@@ -132,7 +132,6 @@ while CG <= 400:
 
             if good_solution not in tabu_list:      # tabu list process
                 tabu_list.append(Current_solution)  # add CS to TL
-                tabu_list.pop(0)                    # remove the earliest recorded solution in TL
 
         value_NCS.remove(functions.profit(good_solution))
         Neighbor_CS.remove(good_solution)   # If BS does not meet the tabu conditions and amnesty criteria,
@@ -154,13 +153,13 @@ while CG <= 400:
         print('')
 
     # Backtracking strategy
-    if RG >= 50:
+    if RG >= 25:
         RG = 0
-        if CG <= 200:
+        if CG <= 50:
             value = output_value
             Current_solution = copy.deepcopy(output_solution)
             tabu_list = [0] * len_tabu_list
-        elif CG > 200:
+        elif CG > 50:
             value = random.sample(best_value, 1)[0]
             index_relocate = best_value.index(value)
             Current_solution = copy.deepcopy(optimal_solution_list[index_relocate])
