@@ -53,8 +53,8 @@ print('TS algorithm begins')
 # Parameter setting
 CG = 0                                  # Current Generation CG
 RG = 0                                  # Restart Generation RG
-len_tabu_list = round(num_part/6)       # Length of tabu list
-len_NCS = len_tabu_list + 2             # The size of the neighborhood space
+len_tabu_list = round(num_part/10)      # Length of tabu list
+len_NCS = len_tabu_list + 1             # The size of the neighborhood space
 tabu_list = [0] * len_tabu_list         # Initialization of tabu list TL
 operator = [1, 2, 3, 4, 5, 6, 7, 8, 9]  # index of each operator
 pick_probable = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9]   # selection probability of each operator
@@ -63,7 +63,7 @@ pick_probable = [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9]   # selection prob
 # Initial solution process
 A = ini.A
 output_solution = copy.deepcopy(A)                         # OS, output solution
-output_value = functions.profit(A)  # The functional value of OS
+output_value = functions.profit(A)                         # The functional value of OS
 Current_solution = copy.deepcopy(A)                        # CS, current solution
 value = output_value                                       # The value of CS
 optimal_solution_list = [output_solution]                  # OSL, optimal solution list
@@ -73,7 +73,7 @@ iteration = 0                                              # Iteration
 
 
 # Main loop
-while CG <= 100:
+while CG < 100:
 
     forbidden = 0                   # The parameter to judge the tabu condition
     Neighbor_CS = []                # Neighborhood solution
@@ -81,7 +81,7 @@ while CG <= 100:
     CG += 1
     RG += 1
     iteration += 1
-    if CG % 25 == 0 and CG != 0:    # Visualization of CG
+    if CG % 20 == 0 and CG != 0:    # Visualization of CG
         print('has not optimized for %d iterations' % CG)
 
     # Neighborhood search
@@ -153,13 +153,13 @@ while CG <= 100:
         print('')
 
     # Backtracking strategy
-    if RG >= 25:
+    if RG >= 20:
         RG = 0
-        if CG <= 50:
+        if CG <= 40:
             value = output_value
             Current_solution = copy.deepcopy(output_solution)
             tabu_list = [0] * len_tabu_list
-        elif CG > 50:
+        elif CG > 40:
             value = random.sample(best_value, 1)[0]
             index_relocate = best_value.index(value)
             Current_solution = copy.deepcopy(optimal_solution_list[index_relocate])
