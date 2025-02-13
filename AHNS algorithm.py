@@ -72,8 +72,8 @@ great_solution = copy.deepcopy(A)   # GOS
 great_value = origin_value          # GOV
 global_solution = copy.deepcopy(A)  # LOS
 global_value = origin_value         # LOV
-local_solution = copy.deepcopy(A)   # LS
-local_value = origin_value          # LV
+local_solution = copy.deepcopy(A)   # PS
+local_value = origin_value          # PV
 solution = copy.deepcopy(A)         # CS
 value = copy.deepcopy(A)            # CV
 
