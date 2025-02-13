@@ -1,5 +1,5 @@
 # Project overview
-Coding with python3.9.1， this project implements three different algorithms (ARNS, RKGA, TS) to solve the order acceptance and batch scheduling problem in additive manufacturing. These algorithms accomplish their tasks by calling the functions in "**functions.py**" and the initial solution generation method in "**initialization.py**". Each algorithm file (**ARNS algorithm.py, RKGA algorithm.py, TS algorithm.py**) independently implements different optimization strategies, but they share the same initial solution generation and basic functions.
+Coding with python3.9.1， this project implements three different algorithms (AHNS, RKGA, TS) to solve the order acceptance and batch scheduling problem in additive manufacturing. These algorithms accomplish their tasks by calling the functions in "**functions.py**" and the initial solution generation method in "**initialization.py**". Each algorithm file (**AHNS algorithm.py, RKGA algorithm.py, TS algorithm.py**) independently implements different optimization strategies, but they share the same initial solution generation and basic functions.
 
 # Usage
 
@@ -57,9 +57,9 @@ This file is responsible for generating the initial solution, which mainly inclu
 
 The core logic of initial solution generation, creating a feasible initial scheduling solution based on constraints such as order height, area, arrival time, etc.
 
-## ARNS algorithm.py
+## AHNS algorithm.py
 
-This file implements the Adaptive Random Neighborhood Search Algorithm (ARNS), which mainly includes:
+This file implements the Adaptive Hybrid Neighborhood Search Algorithm (AHNS), which mainly includes:
 
 Adaptive operator selection: Dynamically adjust the selection probability based on the performance of the operators.
 
@@ -95,7 +95,7 @@ We visualized the corresponding calculation results based on the algorithm struc
 
 1.During the initialization of population：output the current iteration count and the greatest function value ever obtained every five iterations during population initialization generation; Every time a new individual is added to the initial population, output the number of individuals in the initial population. **(only for RKGA algorithm)**
 
-2.During mainloop: when no better solution than the currently obtained optimal solution is found every **(10 for RKGA, 50 for TS, 100 for ARNS)** iterations, output the number of iterations in which the optimal solution was not found. Whenever a better solution is found, output the objective function value of the current optimal solution and the number of times a better solution is found.
+2.During mainloop: when no better solution than the currently obtained optimal solution is found every **(10 for RKGA, 50 for TS, 100 for AHNS)** iterations, output the number of iterations in which the optimal solution was not found. Whenever a better solution is found, output the objective function value of the current optimal solution and the number of times a better solution is found.
 
 3.After the mainloop: output a two-dimensional graph consisting of the optimal function value found during each update and its corresponding iteration count.
 
