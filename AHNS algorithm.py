@@ -123,7 +123,7 @@ while Not_even_improve <= N1:               # stop criterion
         solution = functions.cost_reject(solution)
 
     elif pick_result == 9:  # volume_reject operator
-        solution = functions.accept(solution)
+        solution = functions.volume_reject(solution)
 
     time3 = time.time()
     value = functions.profit(solution)
@@ -177,28 +177,28 @@ while Not_even_improve <= N1:               # stop criterion
         solution = copy.deepcopy(global_solution)
         value = global_value
 
-    # if Not_improve >= N2:                   # backtracking strategy 2
-    #     Not_improve = 0
-    #     index_math = round(Not_even_improve/N2)
-    #     forbidden.append(global_value)
-    #
-    #     # the longer time for non_optimized, the earlier solution in BL is selected
-    #     if index_math <= len(best_value) and index_math < 3:
-    #         solution = copy.deepcopy(best_solution[-index_math])
-    #         value = best_value[-index_math]
-    #     else:
-    #         value = random.sample(best_value, 1)[0]
-    #         index_relocate = best_value.index(value)
-    #         solution = copy.deepcopy(best_solution[index_relocate])
-    #
-    #     global_solution = copy.deepcopy(solution)
-    #     global_value = value
-    #
-    # if Not_even_improve > N3 and Not_even_improve % N3 == 0:  # backtracking strategy 3
-    #     forbidden.append(global_value)
-    #     value = random.sample(best_value, 1)[0]
-    #     index_relocate = best_value.index(value)
-    #     solution = copy.deepcopy(best_solution[index_relocate])
+    if Not_improve > N2:                    # backtracking strategy 2
+        Not_improve = 0
+        index_math = round(Not_even_improve/N2)
+        forbidden.append(global_value)
+    
+        # the longer time for non_optimized, the earlier solution in BL is selected
+        if index_math <= len(best_value) and index_math < 3:
+            solution = copy.deepcopy(best_solution[-index_math])
+            value = best_value[-index_math]
+        else:
+            value = random.sample(best_value, 1)[0]
+            index_relocate = best_value.index(value)
+            solution = copy.deepcopy(best_solution[index_relocate])
+    
+        global_solution = copy.deepcopy(solution)
+        global_value = value
+    
+    if Not_even_improve > N3 and Not_even_improve % N3 == 0:  # backtracking strategy 3
+        forbidden.append(global_value)
+        value = random.sample(best_value, 1)[0]
+        index_relocate = best_value.index(value)
+        solution = copy.deepcopy(best_solution[index_relocate])
 
     local_solution = copy.deepcopy(solution)
     local_value = value
